@@ -1,36 +1,81 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Portfolio
 
-## Getting Started
+A personal portfolio site that syncs your pinned projects live from GitHub —
+stars, language, and last-updated all pull automatically, while you keep full
+control over what shows up and in what order.
 
-First, run the development server:
+## Run it locally
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Make it yours
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Everything you'll want to change lives in two files — no need to touch any
+component code.
 
-## Learn More
+### `data/profile.config.ts`
 
-To learn more about Next.js, take a look at the following resources:
+Your name, title, bio, location, links, profile photos, and accent color.
+Set `githubUsername` here — that's what makes the Projects section sync live.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### `data/repos.config.ts`
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Controls which repos show and in what order:
 
-## Deploy on Vercel
+- **`pinned`** — list repo names (exact, case-sensitive) in the order you
+  want them to appear first. Whatever you put first here shows up first on
+  the site, regardless of GitHub's own sort order.
+- **`hidden`** — repo names to leave off the site entirely (e.g. forks,
+  scratch repos, private experiments you made public by accident).
+- **`overrides`** — per-repo custom display name, description, icon
+  (emoji or image path), or a `featured` badge — without editing GitHub
+  itself.
+- **`sortBy`** / **`limit`** — how everything *not* pinned is ordered, and
+  the max number of repos shown.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The rest of the data (stars, forks, language, last updated) is always pulled
+live from the GitHub API, cached for an hour, so it stays current without a
+redeploy.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+> Optional: set a `GITHUB_TOKEN` environment variable (a GitHub personal
+> access token with no special scopes needed) to raise the API rate limit.
+> Not required for normal personal use.
+
+### Profile photos
+
+Drop your own images into `public/images/` as `avatar-front` and
+`avatar-back` (or update the paths in `profile.config.ts`). Clicking your
+photo on the live site does a 3D flip from the front photo to the back one
+— a nice spot for a more candid/fun photo as the "back."
+
+### Theme
+
+A light/dark toggle is built in (top right). The accent color used for
+highlights across the whole site comes from `accentColor` in
+`profile.config.ts`.
+
+## How people will see it
+
+Once deployed (see below), you get a public URL you can share anywhere —
+on your resume, LinkedIn, email signature, etc. Every time you push a
+change to this repo, the live site rebuilds automatically. Your GitHub
+repos themselves don't need redeploys to show up — they sync on their own
+via the hourly refresh.
+
+## Deploying
+
+**Vercel (recommended, free):**
+
+1. Push this repo to GitHub.
+2. Go to [vercel.com/new](https://vercel.com/new), import the repo.
+3. Deploy — you'll get a `your-project.vercel.app` URL immediately, with a
+   free custom domain option if you have one.
+
+**GitHub Pages:** also works, but requires a static export
+(`next.config.ts` → `output: "export"`) since GitHub Pages can't run the
+server-side GitHub sync on its own — ask if you'd like this set up instead.
