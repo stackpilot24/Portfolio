@@ -24,6 +24,10 @@
 .DS_Store
 *.pem
 
+# raw camera photos (converted to web-ready jpg/png before use)
+*.heic
+*.HEIC
+
 # debug
 npm-debug.log*
 yarn-debug.log*

@@ -21,11 +21,12 @@ export const metadata: Metadata = {
 };
 
 // Runs before paint so the saved theme applies without a flash of the wrong one.
+// Default is the light "paper" theme.
 const themeInitScript = `
 (function () {
   try {
     var saved = localStorage.getItem("theme");
-    var theme = saved === "light" || saved === "dark" ? saved : "dark";
+    var theme = saved === "light" || saved === "dark" ? saved : "light";
     document.documentElement.setAttribute("data-theme", theme);
   } catch (e) {}
 })();
@@ -39,9 +40,10 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      data-theme="dark"
+      data-theme="light"
+      suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-      style={{ ["--accent" as string]: profile.accentColor }}
+      style={{ ["--accent-base" as string]: profile.accentColor }}
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />

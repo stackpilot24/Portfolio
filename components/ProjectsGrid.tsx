@@ -57,7 +57,7 @@ export default function ProjectsGrid({ repos, error }: { repos: Repo[]; error: s
     <div className="flex flex-col gap-8">
       {languages.length > 1 && (
         <Reveal>
-          <div className="flex flex-wrap justify-center gap-2">
+          <div className="flex flex-wrap justify-start gap-2">
             <button
               onClick={() => {
                 setFilter(null);
@@ -97,7 +97,7 @@ export default function ProjectsGrid({ repos, error }: { repos: Repo[]; error: s
         ))}
       </div>
 
-      <div className="flex flex-col items-center gap-3">
+      <div className="flex flex-col items-start gap-3">
         {hiddenCount > 0 && (
           <button
             onClick={() => setExpanded(true)}

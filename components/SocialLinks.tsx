@@ -16,7 +16,7 @@ export default function SocialLinks() {
   if (entries.length === 0) return null;
 
   return (
-    <div className="flex flex-wrap items-center justify-center gap-3">
+    <div className="flex flex-wrap items-center justify-start gap-3">
       {entries.map(([key, value]) => {
         const href = key === "email" ? `mailto:${value}` : value;
         return (

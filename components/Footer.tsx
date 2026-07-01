@@ -1,27 +1,21 @@
 import { profile } from "@/data/profile.config";
-import CopyEmailButton from "./CopyEmailButton";
 
 export default function Footer() {
+  const firstName = profile.name.split(" ")[0];
+
   return (
-    <footer id="contact" className="border-t border-[var(--border)] py-10 text-center">
-      <p className="text-sm text-[var(--muted)]">Want to get in touch?</p>
-      <div className="mt-3 flex items-center justify-center gap-3">
-        {profile.links.email && (
-          <>
-            <a
-              href={`mailto:${profile.links.email}`}
-              className="rounded-full px-4 py-2 text-sm font-medium text-white transition hover:opacity-90"
-              style={{ background: "var(--accent)" }}
-            >
-              {profile.links.email}
-            </a>
-            <CopyEmailButton email={profile.links.email} />
-          </>
-        )}
+    <footer className="border-t border-[var(--border)] py-8">
+      <div className="mx-auto flex max-w-5xl flex-col items-center justify-between gap-3 px-6 text-xs text-[var(--muted)] sm:flex-row">
+        <p>
+          © {new Date().getFullYear()} {profile.name}
+        </p>
+        <p>
+          Built by {firstName} with Next.js & Tailwind ·{" "}
+          <a href="#top" className="transition hover:text-[var(--accent)]">
+            Back to top ↑
+          </a>
+        </p>
       </div>
-      <p className="mt-8 text-xs text-[var(--muted)]">
-        © {new Date().getFullYear()} {profile.name}
-      </p>
     </footer>
   );
 }

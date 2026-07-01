@@ -11,31 +11,56 @@ function timeAgo(dateString: string) {
 }
 
 export default function RepoCard({ repo, delay = 0 }: { repo: Repo; delay?: number }) {
+  const live = repo.homepage;
+
   return (
     <Reveal delay={delay}>
-      <a
-        href={repo.url}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="group flex h-full flex-col gap-3 rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-5 transition hover:-translate-y-1 hover:border-[var(--accent)] hover:shadow-lg"
-      >
+      <div className="group flex h-full flex-col gap-3 rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-5 transition hover:-translate-y-1 hover:border-[var(--accent)] hover:shadow-lg">
         <div className="flex items-start justify-between gap-2">
           <div className="flex items-center gap-2">
             <span className="text-xl leading-none">{repo.icon ?? "📦"}</span>
-            <h3 className="font-semibold leading-tight transition group-hover:text-[var(--accent)]">
+            <a
+              href={live || repo.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold leading-tight transition hover:text-[var(--accent)]"
+            >
               {repo.displayName}
-            </h3>
+            </a>
           </div>
-          {repo.featured && (
-            <span className="rounded-full px-2 py-0.5 text-[10px] font-medium" style={{ background: "var(--accent)", color: "white" }}>
-              Featured
-            </span>
-          )}
+          <div className="flex items-center gap-1.5">
+            {live && (
+              <span className="flex items-center gap-1 rounded-full bg-green-500/15 px-2 py-0.5 text-[10px] font-medium text-green-600">
+                <span className="h-1.5 w-1.5 rounded-full bg-green-500" />
+                Live
+              </span>
+            )}
+            {repo.featured && (
+              <span
+                className="rounded-full px-2 py-0.5 text-[10px] font-medium text-white"
+                style={{ background: "var(--accent)" }}
+              >
+                Featured
+              </span>
+            )}
+          </div>
         </div>
 
         <p className="line-clamp-3 flex-1 text-sm text-[var(--muted)]">{repo.description}</p>
 
-        <div className="flex flex-wrap items-center gap-3 text-xs text-[var(--muted)]">
+        {/* Live-demo call to action — only for deployed projects. */}
+        {live && (
+          <a
+            href={live}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex w-fit items-center gap-1.5 rounded-lg border border-[var(--accent)] px-3 py-1.5 text-xs font-medium text-[var(--accent)] transition hover:bg-[var(--accent)] hover:text-white"
+          >
+            🌐 Open live demo ↗
+          </a>
+        )}
+
+        <div className="flex flex-wrap items-center gap-3 border-t border-[var(--border)] pt-3 text-xs text-[var(--muted)]">
           {repo.language && (
             <span className="flex items-center gap-1.5">
               <span
@@ -46,10 +71,17 @@ export default function RepoCard({ repo, delay = 0 }: { repo: Repo; delay?: numb
             </span>
           )}
           <span>⭐ {repo.stars}</span>
-          <span>🍴 {repo.forks}</span>
-          <span className="ml-auto">{timeAgo(repo.updatedAt)}</span>
+          <a
+            href={repo.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="ml-auto inline-flex items-center gap-1 transition hover:text-[var(--accent)]"
+          >
+            Code ↗
+          </a>
+          <span>{timeAgo(repo.updatedAt)}</span>
         </div>
-      </a>
+      </div>
     </Reveal>
   );
 }

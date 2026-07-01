@@ -25,7 +25,7 @@ export default function FlipAvatar({
         style={{ perspective: "1000px" }}
       >
         <motion.div
-          className="relative h-full w-full rounded-full shadow-xl ring-4 ring-white/10"
+          className="relative h-full w-full rounded-full shadow-xl ring-4 ring-[var(--border)]"
           style={{ transformStyle: "preserve-3d" }}
           animate={{ rotateY: flipped ? 180 : 0 }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}

@@ -1,20 +1,25 @@
 @import "tailwindcss";
 
+/* ── Editorial "paper" theme (default) ─────────────────────────────────── */
 :root {
-  --bg: #0a0a0f;
-  --surface: #14141c;
-  --foreground: #f4f4f5;
-  --muted: #9ca3af;
-  --border: rgba(255, 255, 255, 0.09);
-  --accent: #6366f1;
+  --bg: #f4f1ea;          /* warm cream paper */
+  --surface: #fbfaf6;     /* card / raised */
+  --foreground: #1a1712;  /* near-black ink */
+  --muted: #6f675b;       /* warm gray */
+  --border: rgba(26, 23, 18, 0.14);
+  /* --accent-base is injected inline from profile.accentColor. */
+  --accent: var(--accent-base, #c2410c);
 }
 
-[data-theme="light"] {
-  --bg: #fafafa;
-  --surface: #ffffff;
-  --foreground: #111114;
-  --muted: #6b7280;
-  --border: rgba(0, 0, 0, 0.08);
+/* ── Warm espresso dark variant (toggle) — no blue/purple tones ─────────── */
+[data-theme="dark"] {
+  --bg: #1c1613;          /* warm espresso */
+  --surface: #26201b;     /* raised coffee */
+  --foreground: #f3ebe2;  /* warm off-white */
+  --muted: #ab9c8b;       /* warm taupe */
+  --border: rgba(255, 238, 220, 0.13);
+  /* Auto-brighten whatever accent is configured so it pops on the dark base. */
+  --accent: color-mix(in srgb, var(--accent-base, #c2410c) 72%, white);
 }
 
 @theme inline {
@@ -44,58 +49,55 @@ body {
   color: white;
 }
 
-/* Soft radial glow used behind the hero for depth. */
-.hero-glow {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  overflow: hidden;
-  pointer-events: none;
-}
-.hero-glow::before {
-  content: "";
-  position: absolute;
-  top: -20%;
-  left: 50%;
-  width: 60rem;
-  height: 40rem;
-  transform: translateX(-50%);
-  background: radial-gradient(
-    ellipse at center,
-    color-mix(in srgb, var(--accent) 35%, transparent),
-    transparent 70%
-  );
-  opacity: 0.35;
-  filter: blur(40px);
-}
-
-/* Accent gradient text for headings. */
+/* Accent gradient text for the big editorial headline. */
 .gradient-text {
   background: linear-gradient(
     120deg,
-    var(--foreground),
-    color-mix(in srgb, var(--accent) 90%, white)
+    var(--foreground) 40%,
+    color-mix(in srgb, var(--accent) 85%, var(--foreground))
   );
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
-/* Subtle dotted grid overlay. */
-.dot-grid {
+/* Monospace index label used before section titles: e.g. "01 —". */
+.section-index {
+  font-family: var(--font-mono), monospace;
+  letter-spacing: 0.15em;
+  color: var(--accent);
+}
+
+/* Thin editorial rule that fades out. */
+.rule {
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    var(--foreground),
+    transparent
+  );
+  opacity: 0.18;
+}
+
+/* Faint printed-grid texture for the paper feel. */
+.paper-grid {
   background-image: radial-gradient(
-    color-mix(in srgb, var(--foreground) 12%, transparent) 1px,
+    color-mix(in srgb, var(--foreground) 9%, transparent) 1px,
     transparent 1px
   );
-  background-size: 22px 22px;
+  background-size: 24px 24px;
+}
+
+/* Soft accent wash behind the hero name. */
+.accent-wash {
+  background: radial-gradient(
+    60% 80% at 15% 20%,
+    color-mix(in srgb, var(--accent) 16%, transparent),
+    transparent 70%
+  );
 }
 
 @keyframes float-slow {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-8px);
-  }
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
 }

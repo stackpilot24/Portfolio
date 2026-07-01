@@ -12,14 +12,17 @@ export default function Nav() {
           <span style={{ color: "var(--accent)" }}>.</span>
         </a>
         <div className="flex items-center gap-6">
+          <a href="#about" className="hidden text-sm text-[var(--muted)] transition hover:text-[var(--foreground)] sm:inline">
+            About
+          </a>
+          <a href="#education" className="hidden text-sm text-[var(--muted)] transition hover:text-[var(--foreground)] sm:inline">
+            Education
+          </a>
           <a href="#projects" className="hidden text-sm text-[var(--muted)] transition hover:text-[var(--foreground)] sm:inline">
             Projects
           </a>
           <a href="#skills" className="hidden text-sm text-[var(--muted)] transition hover:text-[var(--foreground)] sm:inline">
             Skills
-          </a>
-          <a href="#about" className="hidden text-sm text-[var(--muted)] transition hover:text-[var(--foreground)] sm:inline">
-            About
           </a>
           <a href="#contact" className="hidden text-sm text-[var(--muted)] transition hover:text-[var(--foreground)] sm:inline">
             Contact
