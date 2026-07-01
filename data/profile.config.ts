@@ -41,8 +41,8 @@ export const profile = {
     degree: "B.Tech, Computer Science & Engineering",
     graduationYear: "2026",
     startYear: "2022",
-    detail: "Bhubaneswar, India",
-    focus: "Full-stack web development & applied AI / machine learning",
+    detail: "Bhubaneswar, Odisha",
+    focus: "Full-stack web development & applied AI / Machine learning",
     highlights: [
       "Built & shipped 6+ live products during my degree",
       "Self-taught Next.js, Prisma and the Gemini / LangChain AI stack",
@@ -53,10 +53,11 @@ export const profile = {
   // ── Skills / tech stack ──────────────────────────────────────────────────
   // Grouped so the site can render them as neat categories.
   skills: [
-    { group: "Frontend", items: ["React", "Next.js", "TypeScript", "Tailwind CSS"] },
+    { group: "Frontend", items: ["Html","CSS","JavaScript","React", "Next.js", "TypeScript", "Tailwind CSS"] },
     { group: "Backend", items: ["Node.js", "Next.js API Routes", "Prisma", "Supabase", "PostgreSQL"] },
-    { group: "AI / ML", items: ["Google Gemini", "LangChain", "Python", "scikit-learn", "Streamlit"] },
+    { group: "AI / ML", items: ["Google Gemini", "LangChain", "Python", "scikit-learn", "Streamlit", "Matplotlib"] },
     { group: "Tools", items: ["Git", "REST APIs", "Vercel", "Jupyter", "Pandas / NumPy"] },
+    { group: "Languages", items: ["Python", "JavaScript", "C++"] },
   ],
 
   // Used to pull your repos live from GitHub. Required.
