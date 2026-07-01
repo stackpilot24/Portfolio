@@ -62,11 +62,6 @@ export const reposConfig = {
       description:
         "Detects phishing websites from URL and page features using machine-learning classifiers.",
     },
-    Javascript: {
-      displayName: "JavaScript Playground",
-      icon: "📚",
-      description: "A learning repo of JavaScript exercises, patterns and experiments.",
-    },
   } as Record<
     string,
     {

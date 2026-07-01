@@ -65,8 +65,10 @@ async function fetchGitHubRepos(username: string): Promise<GitHubApiRepo[]> {
     `https://api.github.com/users/${username}/repos?per_page=100&sort=updated`,
     {
       headers,
-      // Revalidate hourly so new/updated repos show up without a redeploy.
-      next: { revalidate: 3600 },
+      // Re-fetch from GitHub every 10 min so added/deleted/renamed repos show
+      // up automatically. Lower = fresher but more API calls; with a
+      // GITHUB_TOKEN set you can safely drop this further (e.g. 60).
+      next: { revalidate: 600 },
     }
   );
 
