@@ -84,15 +84,23 @@ export async function getRepos(): Promise<{ repos: Repo[]; error: string | null 
     return {
       repos: [],
       error:
-        'Set "githubUsername" in data/profile.config.ts to your GitHub username to sync your repos.',
+        'No GitHub username is set. Open data/profile.config.ts and set "githubUsername" ' +
+        "to your GitHub handle so the site can sync your repositories.",
     };
   }
 
   let raw: GitHubApiRepo[];
   try {
     raw = await fetchGitHubRepos(username);
-  } catch {
-    return { repos: [], error: "Couldn't reach GitHub right now. Try again shortly." };
+  } catch (err) {
+    const detail = err instanceof Error ? err.message : "Unknown network error.";
+    // Surface the likely cause so it's actionable instead of a generic failure.
+    const hint = detail.includes("(404)")
+      ? `We couldn't find a GitHub user named "${username}". Double-check the "githubUsername" in data/profile.config.ts.`
+      : detail.includes("(403)")
+        ? "GitHub's rate limit was hit. Add a GITHUB_TOKEN in your environment (see .env.example) to raise the limit, then refresh."
+        : `Couldn't reach GitHub right now (${detail}). This is usually temporary — please try again in a moment.`;
+    return { repos: [], error: hint };
   }
 
   const { pinned, hidden, excludeForks, sortBy, limit, overrides } = reposConfig;

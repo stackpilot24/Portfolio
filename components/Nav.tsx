@@ -15,6 +15,9 @@ export default function Nav() {
           <a href="#projects" className="hidden text-sm text-[var(--muted)] transition hover:text-[var(--foreground)] sm:inline">
             Projects
           </a>
+          <a href="#skills" className="hidden text-sm text-[var(--muted)] transition hover:text-[var(--foreground)] sm:inline">
+            Skills
+          </a>
           <a href="#about" className="hidden text-sm text-[var(--muted)] transition hover:text-[var(--foreground)] sm:inline">
             About
           </a>

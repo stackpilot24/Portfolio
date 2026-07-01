@@ -1,9 +1,10 @@
-import { profile } from "@/data/profile.config";
 import { getRepos } from "@/lib/github";
 import Hero from "@/components/Hero";
 import Section from "@/components/Section";
 import StatsBar from "@/components/StatsBar";
 import ProjectsGrid from "@/components/ProjectsGrid";
+import Skills from "@/components/Skills";
+import About from "@/components/About";
 
 export default async function Home() {
   const { repos, error } = await getRepos();
@@ -12,18 +13,20 @@ export default async function Home() {
     <>
       <Hero />
 
-      <Section id="projects" title="Projects" subtitle="Synced live from GitHub.">
-        <div className="flex flex-col gap-10">
-          <StatsBar repos={repos} />
-          <ProjectsGrid repos={repos} error={error} />
-        </div>
+      <div className="mx-auto -mt-6 max-w-3xl px-6">
+        <StatsBar repos={repos} />
+      </div>
+
+      <Section id="projects" title="Featured Projects" subtitle="A selection of things I've built — synced live from GitHub.">
+        <ProjectsGrid repos={repos} error={error} />
       </Section>
 
-      <Section id="about" title="About">
-        <div className="mx-auto max-w-2xl text-center text-[var(--muted)]">
-          <p>{profile.bio}</p>
-          {profile.location && <p className="mt-3 text-sm">📍 {profile.location}</p>}
-        </div>
+      <Section id="skills" title="Skills & Tools" subtitle="The stack I reach for.">
+        <Skills />
+      </Section>
+
+      <Section id="about" title="About Me">
+        <About />
       </Section>
     </>
   );
